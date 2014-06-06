@@ -1,4 +1,4 @@
-/* global describe, it, before, beforeEach */
+/* global describe, it, before, beforeEach, afterEach */
 /* jshint expr:true */
 
 'use strict';
@@ -10,6 +10,9 @@ var Mongo = require('mongodb');
 var traceur = require('traceur');
 var db = traceur.require(__dirname + '/../../helpers/db.js');
 var factory = traceur.require(__dirname + '/../../helpers/factory.js');
+var fs = require('fs');
+var cp = require('child_process');
+
 
 var User;
 
@@ -23,11 +26,21 @@ describe('User', function(){
 
   beforeEach(function(done){
     global.nss.db.collection('users').drop(function(){
-      factory('user', function(users){
-        done();
+      cp.execFile(__dirname + '/../../fixtures/cleanbefore.sh', {cwd:__dirname+'/../../fixtures'}, function(err,stdout,stderr){
+        console.log(stdout);
+        factory('user', function(){
+          done();
+        });
       });
     });
   });
+
+  afterEach(function(done){
+    cp.execFile(__dirname + '/../../fixtures/cleanafter.sh', {cwd:__dirname+'/../../../app/static/img'}, function(err,stdout,stderr){
+      done();
+    });
+  });
+
 
   describe('.create', function(){
     it('should successfully create a user', function(done){
@@ -94,17 +107,63 @@ describe('User', function(){
       });
     });
   });
-  // 
-  // describe('#update', function(){
-  //     it('should successfully update a users info', function(done){
-  //       User.findById('0123456789abcdef01234502', function(u){
-  //         var stuff = {};
-  //         u.update(stuff,function(done){
-  //           console.log('IM HERE');
-  //           done();
-  //         });
-  //     });
-  //   });
-  // });
+
+  describe('#save', function(){
+    it('should successfully update a users info', function(done){
+      User.findById('0123456789abcdef01234502', function(u1){
+        u1.name = 'changed';
+        u1.bio = 'new bio';
+        u1.save(function(){
+          User.findById('0123456789abcdef01234502', function(u2){
+            expect(u2.name).to.equal('changed');
+            expect(u2.bio).to.equal('new bio');
+            expect(u2.email).to.equal('tammy@gmail.com');
+            done();
+          });
+        });
+      });
+    });
+  });
+
+
+  describe('#update', function(){
+    it('should successfully update a users info', function(done){
+      var fields ={
+                  name: ['tammy jones'],
+                  ipAddress:['123.123.123.123'],
+                  bio:['I love your dirty bits'],
+                  seeking:[['macbooks', 'toasters']],
+                  os:['OSXXX'],
+                  languages:[['c++', 'ruby']],
+                  classification:['computer'],
+                };
+      var files = {photo:[ {originalFilename:'mac-DELETE.jpg', path:__dirname+'/../../fixtures/copy/mac-DELETE.jpg', size:123 } ]};
+      User.findById('0123456789abcdef01234502', function(user){
+        user.update(fields, files);
+        user.save(function(){
+          expect(user).to.be.instanceof(User);
+          expect(user._id).to.be.instanceof(Mongo.ObjectID);
+          expect(user.name).to.equal('tammy jones');
+          expect(user.primaryPhoto).to.equal('/img/0123456789abcdef01234502/mac-DELETE.jpg');
+          expect(fs.existsSync(__dirname+'/../../../app/static/img/0123456789abcdef01234502/mac-DELETE.jpg')).to.be.true;
+          done();
+        });
+      });
+    });
+
+    it('should NOT successfully update a users info', function(done){
+      var files = {photo:[ {originalFilename:'mac-DELETE.jpg', path:__dirname+'/../../fixtures/copy/mac-DELETE.jpg', size:123 } ]};
+      User.findById('0123456789abcdef01234502', function(user){
+        user.update(null, files);
+        user.save(function(){
+          expect(user).to.be.instanceof(User);
+          expect(user._id).to.be.instanceof(Mongo.ObjectID);
+          expect(user.name).to.equal('');
+          done();
+        });
+      });
+    });
+
+  });
 
 });

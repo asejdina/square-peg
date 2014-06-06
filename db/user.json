@@ -3,21 +3,48 @@
   "_id":"0123456789abcdef01234501",
   "name": "terri smith",
   "email": "terri@aol.com",
-  "password": "123"
+  "password": "123",
+  "ipAddres":"123.123.123.123",
+  "primaryPhoto":"mac.jpg",
+  "photoGallery":[],
+  "bio":"I love your dirty bits",
+  "seeking":["macbooks", "toasters"],
+  "os":"OSXXX",
+  "languages":["c++", "ruby"],
+  "classification":"computer",
+  "isCreated":"true"
   },
 
   {
   "_id":"0123456789abcdef01234502",
-  "name": "tammy jones",
+  "name": "",
   "email": "tammy@gmail.com",
-  "password": "1"
+  "password": "1",
+  "ipAddres":"",
+  "primaryPhoto":"",
+  "photoGallery":[],
+  "bio":"",
+  "seeking":[],
+  "os":"",
+  "languages":[],
+  "classification":"",
+  "isCreated":"false"
   },
 
   {
   "_id":"0123456789abcdef01234503",
   "name": "bill thompson",
   "email": "bill@aol.com",
-  "password": "156"
+  "password": "156",
+  "ipAddres":"",
+  "primaryPhoto":"",
+  "photoGallery":[],
+  "bio":"",
+  "seeking":[],
+  "os":"",
+  "languages":[],
+  "classification":"",
+  "isCreated":"false"
   }
 
 ]

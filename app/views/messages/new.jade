@@ -1,0 +1,7 @@
+extends ../shared/template
+
+block content
+  form(method='POST', action='/messages/new/#{message.toId}')
+    label Message
+    textarea(name='message')
+    button Send

@@ -3,12 +3,12 @@ var messageCollection = global.nss.db.collection('messages');
 var _ = require('lodash');
 
 class Message{
-  static create(obj, fn){
+  static create(fromId, toId, body, fn){
 
     var message = new Message();
-    message.fromId = Mongo.ObjectID(obj.fromId);
-    message.toId = Mongo.ObjectID(obj.toId);
-    message.message = obj.message;
+    message.fromId = Mongo.ObjectID(fromId);
+    message.toId = Mongo.ObjectID(toId);
+    message.message = body.message;
 
     messageCollection.save(message, ()=>fn(message));
   }

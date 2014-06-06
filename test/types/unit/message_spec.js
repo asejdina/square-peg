@@ -24,9 +24,9 @@ describe('Message', function(){
 
   beforeEach(function(done){
     global.nss.db.collection('messages').drop(function(){
-      Message.create({fromId:'123443789012abcde3287453', toId:'12345678901d342de4587453', message:'Hey, I like your logic board.'},function(m1){
+      Message.create('123443789012abcde3287453', '12345678901d342de4587453', {message:'Hey, I like your logic board.'}, function(m1){
         message1 = m1;
-        Message.create({fromId:'123443789012abcde3285555', toId:'12345678901d342de4587453', message:'Nice to meet you. Lets have computer sex'},function(m2){
+        Message.create('123443789012abcde3285555', '12345678901d342de4587453', {message:'Nice to meet you. Lets have computer sex'},function(m2){
           message2 = m2;
           done();
         });
@@ -36,7 +36,7 @@ describe('Message', function(){
 
   describe('.create', function(){
     it('should create a message', function(done){
-      Message.create({'fromId':'123443789123abcde3287453', 'toId':'123443789123abcde3287445', 'message':'This is a test message.'}, function(m){
+      Message.create('123443789123abcde3287453', '123443789123abcde3287445', {'message':'This is a test message.'}, function(m){
         expect(m).to.be.instanceof(Message);
         expect(m._id).to.be.ok;
         expect(m.message).to.be.a('string');

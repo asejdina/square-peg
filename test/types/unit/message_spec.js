@@ -3,7 +3,7 @@
 
 'use strict';
 
-process.env.DBNAME = 'square-peg';
+process.env.DBNAME = 'square-peg-test';
 
 var expect = require('chai').expect;
 //var Mongo = require('mongodb');

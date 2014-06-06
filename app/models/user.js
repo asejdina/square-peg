@@ -59,15 +59,14 @@ class User {
 
   update(fields, files){
     if(fields && typeof(fields.name) !== 'undefined') {
-      console.log(fields);
       if(!this.isCreated) {
         this.isCreated = true;
       }
       this.name = fields.name[0];
       this.ipAddress = fields.ipAddress[0];
       this.bio = fields.bio[0];
-      this.seeking = fields.seeking[0];
-      this.languages = fields.languages[0];
+      this.seeking = fields.seeking[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
+      this.languages = fields.languages[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.os = fields.os[0];
       this.classification = fields.classification[0];
       this.primaryPhoto = `/img/${this._id.toString()}/${files.photo[0].originalFilename}`;

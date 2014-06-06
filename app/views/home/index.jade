@@ -1,4 +1,23 @@
 extends ../shared/template
 
 block content
-  h1= title
+  h1 HOMEPAGE
+  #centerme
+    a#btn-register(href='#') Register
+    a#btn-login(href='#') Login
+
+    .clear
+
+    form#form-register(action='/users/new', method='post')
+      input#register-input-email(type='text', name='email', placeholder='Email Address')
+      .clear
+      input#register-input-password(type='password', name='password', placeholder='Password')
+      .clear
+      button#submit-register Create Account
+
+    form#form-login(method='post', action='/users/login')
+      input#login-input-email(type='text', name='email', placeholder='Email Address')
+      .clear
+      input#login-input-password(type='password', name='password', placeholder='Password')
+      .clear
+      button#submit-login Login

@@ -5,6 +5,21 @@ html
     title= title
     link(href='/less/app.css', rel='stylesheet')
   body
+    header
+      #header-content
+        #logo
+          a(href='#')
+            img(src='/img/assets/logo.svg')
+        nav
+          ul
+            li
+              a(href='#') Dashboard
+            li
+              a(href='#') Messages
+            li
+              a(href='#') Search?
+            li
+              a(href='#') Logout
     block content
 
     script(src='/js/vendor/jquery-2.1.1.js')

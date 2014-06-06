@@ -1,0 +1,23 @@
+[
+  {
+  "_id":"0123456789abcdef01234501",
+  "name": "terri smith",
+  "email": "terri@aol.com",
+  "password": "123"
+  },
+
+  {
+  "_id":"0123456789abcdef01234502",
+  "name": "tammy jones",
+  "email": "tammy@gmail.com",
+  "password": "1"
+  },
+
+  {
+  "_id":"0123456789abcdef01234503",
+  "name": "bill thompson",
+  "email": "bill@aol.com",
+  "password": "156"
+  }
+
+]

@@ -1,13 +1,28 @@
 'use strict';
 
-exports.login = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! users login');
-  res.render('users/dash', {title: 'Dashboard'});
+var traceur = require('traceur');
+var User = traceur.require(__dirname + '/../models/user.js');
+
+exports.lookup = (req, res, next)=>{
+  User.findById(req.session.userId, user=>{
+    res.locals.user = user;
+    next();
+  });
 };
 
 exports.new = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! users new');
-  res.redirect('/users/edit');
+  User.create(req.body, user=>{
+    console.log('**************');
+    console.log(user);
+    console.log('**************');
+    req.session.userId = user._id;
+    res.redirect('/users/edit');
+  });
+};
+
+exports.login = (req, res)=>{
+  console.log('!!!!!!!!!!!!!!!!!!!!! users login');
+  res.render('users/dash', {user: res.locals.user, title: 'Dashboard'});
 };
 
 exports.dash = (req, res)=>{
@@ -17,7 +32,7 @@ exports.dash = (req, res)=>{
 
 exports.edit = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users edit');
-  res.render('users/edit', {title: 'Edit Profile'});
+  res.render('users/edit', {user: res.locals.user, title: 'Edit Profile'});
 };
 
 exports.update = (req, res)=>{

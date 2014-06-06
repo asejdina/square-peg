@@ -1,8 +1,12 @@
 'use strict';
 
+var traceur = require('traceur');
+var Message = traceur.require(__dirname + '/../models/message.js');
+
 exports.index = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! messages index');
-  res.render('messages/index', {title: 'Messages'});
+  Message.findAllByToId(req.session.userId, messages=>{
+    res.render('messages/index', {messages:messages, title: 'Inbox'});
+  });
 };
 
 exports.destroy = (req, res)=>{

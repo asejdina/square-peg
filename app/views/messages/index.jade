@@ -1,4 +1,18 @@
 extends ../shared/template
 
 block content
-  h1 MESSAGES INDEX
+  table
+    thead
+      th From
+      th Reply
+      th Delete
+    tbody
+      each message in messages
+        tr
+          td
+          td
+            a(href='/messages/new/#{message.fromId}') Reply
+          td
+            form(method='POST', action='#')
+              input(type="hidden" name="_method" value="DELETE")
+              button X

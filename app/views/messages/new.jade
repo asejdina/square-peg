@@ -1,4 +1,7 @@
 extends ../shared/template
 
 block content
-  h1 COMPOSE A MESSAGE
+  form(method='POST', action='/messages/new/#{message.toId}')
+    label Message
+    textarea(name='message')
+    button Send

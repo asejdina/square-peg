@@ -24,11 +24,11 @@ describe('Message', function(){
 
   beforeEach(function(done){
     global.nss.db.collection('messages').drop(function(){
-      Message.create({'fromId':'123443789012abcde3287453', 'toId':'12345678901d342de4587453', 'message':'Hey, I like your logic board.'},function(m1){
+      Message.create({fromId:'123443789012abcde3287453', toId:'12345678901d342de4587453', message:'Hey, I like your logic board.'},function(m1){
         message1 = m1;
-        Message.create({'fromId':'123443789012abcde3285555', 'toId':'12345678901d342de4587453', 'message':'Nice to meet you. Lets have computer sex'},function(m2){
+        Message.create({fromId:'123443789012abcde3285555', toId:'12345678901d342de4587453', message:'Nice to meet you. Lets have computer sex'},function(m2){
           message2 = m2;
-        done();
+          done();
         });
       });
     });

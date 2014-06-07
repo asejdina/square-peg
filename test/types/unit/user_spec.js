@@ -132,9 +132,9 @@ describe('User', function(){
                   name: ['tammy jones'],
                   ipAddress:['123.123.123.123'],
                   bio:['I love your dirty bits'],
-                  seeking:[['macbooks', 'toasters']],
+                  seeking:['macbooks', 'toasters'],
                   os:['OSXXX'],
-                  languages:[['c++', 'ruby']],
+                  languages:['c++, ruby'],
                   classification:['computer'],
                 };
       var files = {photo:[ {originalFilename:'mac-DELETE.jpg', path:__dirname+'/../../fixtures/copy/mac-DELETE.jpg', size:123 } ]};
@@ -164,6 +164,99 @@ describe('User', function(){
       });
     });
 
+    it('should successfully make fields.seeking into a valid array', function(done){
+      var fields ={
+                  name: ['tammy jones'],
+                  ipAddress:['123.123.123.123'],
+                  bio:['I love your dirty bits'],
+                  seeking:['macbooks  toasters, iPhones , cows'],
+                  os:['OSX'],
+                  languages:['javascript ruby'],
+                  classification:['toaster'],
+                };
+      var files = {photo:[ {originalFilename:'mac-DELETE.jpg', path:__dirname+'/../../fixtures/copy/mac-DELETE.jpg', size:123 } ]};
+      User.findById('0123456789abcdef01234503', function(user){
+        user.update(fields, files);
+        user.save(function(){
+          expect(user).to.be.instanceof(User);
+          expect(user.seeking).to.deep.equal(['macbooks', 'toasters', 'iphones', 'cows']);
+          done();
+        });
+      });
+    });
+
+    it('should successfully make fields.seeking into a valid array', function(done){
+      var fields ={
+                  name: ['Ginger'],
+                  ipAddress:['123.1.23.13'],
+                  bio:['I love your dirty bits'],
+                  seeking:['macbooks, androids , spaceships'],
+                  os:['OSX'],
+                  languages:['ruby'],
+                  classification:['toaster'],
+                };
+      var files = {photo:[ {originalFilename:'mac-DELETE.jpg', path:__dirname+'/../../fixtures/copy/mac-DELETE.jpg', size:123 } ]};
+      User.findById('0123456789abcdef01234504', function(user){
+        user.update(fields, files);
+        user.save(function(){
+          expect(user).to.be.instanceof(User);
+          done();
+        });
+      });
+    });
   });
+
+  describe('#match', function(){
+    it('should successfully find matching users from a given array', function(done){
+      User.findById('0123456789abcdef01234502', function(user){
+        var fields ={
+                    name: ['Ginger'],
+                    ipAddress:['123.1.23.13'],
+                    bio:['I love your dirty bits'],
+                    seeking:['macbooks, androids , spaceships'],
+                    os:['OSX'],
+                    languages:['ruby'],
+                    classification:['toaster'],
+                  };
+        var files = {photo:[ {originalFilename:'mac-DELETE.jpg', path:__dirname+'/../../fixtures/copy/mac-DELETE.jpg', size:123 } ]};
+        User.findById('0123456789abcdef01234504', function(u2){
+          u2.update(fields, files);
+          u2.save(function(){
+            var searchParams = ['ruby', 'mackbooks'];
+            user.match(searchParams, function(matches){
+              expect(matches[0]).to.be.instanceof(User);
+              expect(matches[0].name).to.equal('Ginger');
+              done();
+            });
+          });
+        });
+      });
+    });
+  }); // end describe '#match'
+
+  describe('.destroyById', function(){
+    it('should successfully delete a user', function(done){
+      User.findById('0123456789abcdef01234504', function(user){
+        var fields ={
+                    name: ['Ginger'],
+                    ipAddress:['123.1.23.13'],
+                    bio:['I love your dirty bits'],
+                    seeking:['macbooks, androids , spaceships'],
+                    os:['OSX'],
+                    languages:['ruby'],
+                    classification:['toaster'],
+                  };
+        var files = {photo:[ {originalFilename:'mac-DELETE.jpg', path:__dirname+'/../../fixtures/copy/mac-DELETE.jpg', size:123 } ]};
+        user.update(fields, files);
+        user.save(function(){
+          User.destroyById('0123456789abcdef01234504', function(success){
+            expect(success).to.be.true;
+            done();
+          });
+        });
+      });
+    });
+  });
+
 
 });

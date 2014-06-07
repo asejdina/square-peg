@@ -6,7 +6,9 @@ var Mongo = require('mongodb');
 var traceur = require('traceur');
 var Base = traceur.require(__dirname + '/base.js');
 var fs = require('fs');
+var _ = require('lodash');
 var path = require('path');
+var rimraf = require('rimraf');
 
 class User {
 
@@ -53,33 +55,64 @@ class User {
     Base.findById(id, users, User, fn);
   }
 
+
+  static destroyById(userId, fn) {
+    userId = Mongo.ObjectID(userId);
+    users.findAndRemove({_id:userId}, (e,u)=>{
+      rimraf(u.primaryPhotoDir, ()=> {
+        fn(true);
+      });
+    });
+  }
+
+
   save(fn) {
     users.save(this, ()=>fn());
   }
 
   update(fields, files){
     if(fields && typeof(fields.name) !== 'undefined') {
-      console.log(fields);
       if(!this.isCreated) {
         this.isCreated = true;
       }
       this.name = fields.name[0];
       this.ipAddress = fields.ipAddress[0];
       this.bio = fields.bio[0];
-      this.seeking = fields.seeking[0];
-      this.languages = fields.languages[0];
+      this.seeking = fields.seeking[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
+      this.languages = fields.languages[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.os = fields.os[0];
       this.classification = fields.classification[0];
       this.primaryPhoto = `/img/${this._id.toString()}/${files.photo[0].originalFilename}`;
       var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
       userDir = path.normalize(userDir);
       this.primaryPhotoPath = `${userDir}/${files.photo[0].originalFilename}`;
+      this.primaryPhotoDir = userDir;
       if(!fs.existsSync(userDir)){
         fs.mkdirSync(userDir);
       }
       fs.renameSync(files.photo[0].path, this.primaryPhotoPath);
     }
   }
-}
+
+  match(searchParams, fn) {
+    if(searchParams) {
+      users.find({ $or: [ { classification: { $in: searchParams} },
+                          { languages: { $in:searchParams } },
+                          { os: { $in: searchParams } } ] } ).toArray((err, matches)=>{
+                  matches = matches.map(m=>_.create(User.prototype, m));
+
+                  fn(matches);
+      });
+    }
+    else {
+      fn(null);
+    }
+  }
+
+
+} // end class
 
 module.exports = User;
+
+
+//{ $or: [ { classification: { $in: ['ruby', 'mackbooks'] } },{ languages: { $in:['ruby', 'mackbooks'] } },{ os: { $in: ['ruby', 'mackbooks'] } } ] }

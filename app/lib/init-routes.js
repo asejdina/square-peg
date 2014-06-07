@@ -25,6 +25,11 @@ function load(app, fn){
 
   app.post('/users/login', dbg, users.login);
   app.post('/users/new', dbg, users.new);
+
+  app.all('*', dbg, users.bounce);
+
+  app.get('/users/logout', dbg, users.logout);
+
   app.get('/users/dash', dbg, users.dash);
   app.get('/users/edit',dbg, users.edit);
   app.post('/users/edit',dbg, users.update);

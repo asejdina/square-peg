@@ -2,3 +2,20 @@ extends ../shared/template
 
 block content
   h1 SHOW PROFILE PAGE
+  p= user.email
+
+  .profile-picture(style='background-image:url(#{user.primaryPhoto})')
+  h2= user.name
+  p= user.bio
+
+  a(href='/messages/new/#{user._id}') Message #{user.name}
+  .clear
+  a#ping(href='#') Ping #{user.name}
+
+  p Languages: #{user.languages}
+  p OS: #{user.os}
+
+  h3 Seeking:
+  ul
+    each seek in user.seeking
+      li seek

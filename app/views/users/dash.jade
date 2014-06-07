@@ -4,32 +4,39 @@ block content
   h1 USER DASHBOARD
 
 
-  #profileImage
+  .profile-picture(style="background-image:url('#{user.primaryPhoto}')")
+
 
   #profileHeader
-    h1 Name
-    h4 Email
+    h1= user.name
+    h4= user.email
 
-    button.editProfile Edit Profile
+    span: a(href='/users/edit') Edit
 
   #ping
 
   #messages
     #messageCount New Messages:
 
-  #topMatches
+  #userMatchSection
     h2 Top Matches
+    #topMatches
 
-    button.showAllMatches Show All
+    span: a(href='/users/matches') View All
 
   #myInfo
-    h2 My Info
-    h3 ipAddress
+    h3 IP
+    p= user.ipAddress
+    h3 Bio
+    p= user.bio
     h3 Seeking
-    p Bio
-    h3 languages
-    h3 classification
+    p= user.seeking
+    h3 OS
+    p= user.os
+    h3 Languages
+    p= user.languages
+    h3 Classification
+    p= user.classification
 
 block scripts
   script(src='/js/es6/compiled/dashboard.js')
-  p= user.email

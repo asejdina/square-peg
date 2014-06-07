@@ -57,5 +57,9 @@ exports.top3matches = (req, res)=>{
 
 exports.matches = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users matches');
-  res.render('users/matches', {title:'Matches'});
+  User.findById(req.locals.user._id.toString(), user=>{
+    user.match(user.seeking, (matches)=>{
+      res.render('users/matches', {matches:matches, title:'Matches'});
+    });
+  });
 };

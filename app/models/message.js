@@ -35,7 +35,7 @@ class Message{
   }
 
   destroy(fn){
-    messageCollection.findAndRemove({_id:this._id}, ()=>fn());
+    messageCollection.remove({_id:this._id}, ()=>fn());
   }
 }
 

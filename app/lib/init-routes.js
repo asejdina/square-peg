@@ -33,7 +33,7 @@ function load(app, fn){
   app.get('/users/matches', dbg, users.matches);
 
   app.get('/messages/inbox', dbg, messages.index);
-  app.delete('/messages/:msgId', dbg, messages.destroy);
+  app.post('/messages/:msgId', dbg, messages.destroy);
   app.get('/messages/new/:toId', dbg, messages.new);
   app.post('/messages/new/:toId', dbg, messages.create);
 

@@ -64,3 +64,5 @@
   }
 
 ]
+=======
+{"_id":"0123456789abcdef01234501","name": "terri smith","email": "terri@aol.com","password": "123","ipAddres":"123.123.123.123","primaryPhoto":"mac.jpg","photoGallery":[],"bio":"I love your dirty bits","seeking":["macbooks", "toasters"],  "os":"OSXXX","languages":["c++", "ruby"],"classification":"computer","isCreated":"true"}

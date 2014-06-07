@@ -1,18 +1,13 @@
 'use strict';
 
+var _ = require('lodash');
 var traceur = require('traceur');
 var Message = traceur.require(__dirname + '/../models/message.js');
 
 exports.index = (req, res)=>{
-  // var testToId = '1567356789abcdef01234569'; for testing purposes replace req.session.userId with this var
   Message.findAllByToId(req.session.userId, messages=>{
-    res.render('messages/index', {messages:messages, title: 'Inbox'});
+    res.render('messages/index', {messages: messages, title: 'Inbox'});
   });
-};
-
-exports.destroy = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! messages destroy');
-  res.render('messages/msg_list', {});
 };
 
 exports.new = (req, res)=>{
@@ -20,9 +15,15 @@ exports.new = (req, res)=>{
 };
 
 exports.create = (req, res)=>{
-  // var rsu = '1567356789abcdef01234569'; for testing purposes replace req.session.userId with this var
   Message.create(req.session.userId, req.params.toId, req.body, message=>{
     console.log(message);
     res.redirect('/users/dash');
+  });
+};
+
+exports.destroy = (req, res)=>{
+  Message.findByMessageId(req.params.msgId, message=>{
+    message = _.create(Message.prototype, message);
+    message.destroy(()=>res.redirect('/messages/inbox'));
   });
 };

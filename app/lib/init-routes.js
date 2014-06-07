@@ -26,6 +26,8 @@ function load(app, fn){
   app.post('/users/login', dbg, users.login);
   app.get('/users/logout', dbg, users.logout);
   app.post('/users/new', dbg, users.new);
+
+  
   app.get('/users/dash', dbg, users.dash);
   app.get('/users/edit',dbg, users.edit);
   app.post('/users/edit',dbg, users.update);
@@ -34,7 +36,7 @@ function load(app, fn){
   app.get('/users/matches', dbg, users.matches);
 
   app.get('/messages/inbox', dbg, messages.index);
-  app.delete('/messages/:msgId', dbg, messages.destroy);
+  app.post('/messages/:msgId', dbg, messages.destroy);
   app.get('/messages/new/:toId', dbg, messages.new);
   app.post('/messages/new/:toId', dbg, messages.create);
 

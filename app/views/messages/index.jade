@@ -3,16 +3,15 @@ extends ../shared/template
 block content
   table
     thead
-      th From
+      th Content
       th Reply
       th Delete
     tbody
       each message in messages
         tr
-          td
+          td= message.message
           td
             a(href='/messages/new/#{message.fromId}') Reply
           td
-            form(method='POST', action='#')
-              input(type="hidden" name="_method" value="DELETE")
+            form(method='POST', action='/messages/#{message._id}')
               button X

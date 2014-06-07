@@ -1,8 +1,13 @@
 'use strict';
 
+var traceur = require('traceur');
+var Message = traceur.require(__dirname + '/../models/message.js');
+
 exports.index = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! messages index');
-  res.render('messages/index', {title: 'Messages'});
+  // var testToId = '1567356789abcdef01234569'; for testing purposes replace req.session.userId with this var
+  Message.findAllByToId(req.session.userId, messages=>{
+    res.render('messages/index', {messages:messages, title: 'Inbox'});
+  });
 };
 
 exports.destroy = (req, res)=>{
@@ -11,11 +16,13 @@ exports.destroy = (req, res)=>{
 };
 
 exports.new = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! messages new');
-  res.render('messages/new', {title: 'Create New Message'});
+  res.render('messages/new', {toId: req.params.toId, title: 'Create New Message'});
 };
 
 exports.create = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! messages create');
-  res.redirect('/users/dash');
+  // var rsu = '1567356789abcdef01234569'; for testing purposes replace req.session.userId with this var
+  Message.create(req.session.userId, req.params.toId, req.body, message=>{
+    console.log(message);
+    res.redirect('/users/dash');
+  });
 };

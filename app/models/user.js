@@ -79,6 +79,10 @@ class User {
       fs.renameSync(files.photo[0].path, this.primaryPhotoPath);
     }
   }
+
+  match() {
+    //db.users.find({ $or: [ { classification: { $in: ["macbooks"] } }, { languages: {$in:["ruby"]} } ] } )
+  }
 }
 
 module.exports = User;

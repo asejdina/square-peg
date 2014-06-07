@@ -12,9 +12,6 @@ exports.lookup = (req, res, next)=>{
 
 exports.new = (req, res)=>{
   User.create(req.body, user=>{
-    console.log('**************');
-    console.log(user);
-    console.log('**************');
     req.session.userId = user._id;
     res.redirect('/users/edit');
   });
@@ -41,8 +38,9 @@ exports.update = (req, res)=>{
 };
 
 exports.show = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! users show');
-  res.render('users/show', {title: 'User Profile'});
+  User.findById(req.params.id.toString(), user=>{
+    res.render('users/show', {user: user, title: 'User Profile'});
+  });
 };
 
 exports.top3matches = (req, res)=>{

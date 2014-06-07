@@ -3,6 +3,7 @@ extends ../shared/template
 block content
   h1 USER DASHBOARD
 
+
   #profileImage
 
   #profileHeader
@@ -31,3 +32,4 @@ block content
 
 block scripts
   script(src='/js/es6/compiled/dashboard.js')
+  p= user.email

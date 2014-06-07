@@ -23,8 +23,13 @@ function load(app, fn){
 
   app.get('/', dbg, home.index);
 
-  app.get('/users/login', dbg, users.login);
+  app.post('/users/login', dbg, users.login);
   app.post('/users/new', dbg, users.new);
+
+  app.all('*', dbg, users.bounce);
+
+  app.get('/users/logout', dbg, users.logout);
+
   app.get('/users/dash', dbg, users.dash);
   app.get('/users/edit',dbg, users.edit);
   app.post('/users/edit',dbg, users.update);
@@ -33,7 +38,7 @@ function load(app, fn){
   app.get('/users/matches', dbg, users.matches);
 
   app.get('/messages/inbox', dbg, messages.index);
-  app.delete('/messages/:msgId', dbg, messages.destroy);
+  app.post('/messages/:msgId', dbg, messages.destroy);
   app.get('/messages/new/:toId', dbg, messages.new);
   app.post('/messages/new/:toId', dbg, messages.create);
 

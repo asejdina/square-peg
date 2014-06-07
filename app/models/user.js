@@ -6,7 +6,9 @@ var Mongo = require('mongodb');
 var traceur = require('traceur');
 var Base = traceur.require(__dirname + '/base.js');
 var fs = require('fs');
+var _ = require('lodash');
 var path = require('path');
+var rimraf = require('rimraf');
 
 class User {
 
@@ -53,6 +55,16 @@ class User {
     Base.findById(id, users, User, fn);
   }
 
+
+  static destroyById(userId, fn) {
+    userId = Mongo.ObjectID(userId);
+    users.findAndRemove({_id:userId}, (e,u)=>{
+      rimraf(u.primaryPhotoDir, ()=> {
+        fn(true);
+      });
+    });
+  }
+
   save(fn) {
     users.save(this, ()=>fn());
   }
@@ -63,7 +75,9 @@ class User {
         this.isCreated = true;
       }
       this.name = fields.name[0];
-      this.ipAddress = fields.ipAddress[0];
+      this.ipAddress = fields.ipAddress[0].toString();
+      this.ipAddress = this.ipAddress.match(/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/g,'').toString(); // check if valid IP address
+      if(this.ipAddress === ''){ this.ipAddress = '000.000.000.000'; }
       this.bio = fields.bio[0];
       this.seeking = fields.seeking[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.languages = fields.languages[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
@@ -73,12 +87,37 @@ class User {
       var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
       userDir = path.normalize(userDir);
       this.primaryPhotoPath = `${userDir}/${files.photo[0].originalFilename}`;
+      this.primaryPhotoDir = userDir;
       if(!fs.existsSync(userDir)){
         fs.mkdirSync(userDir);
       }
       fs.renameSync(files.photo[0].path, this.primaryPhotoPath);
     }
   }
-}
+
+  match(searchParams, fn) {
+    if(searchParams) {
+      users.find({ $or: [ { classification: { $in: searchParams} },
+                          { languages: { $in:searchParams } },
+                          { os: { $in: searchParams } } ] } ).toArray((err, matches)=>{
+                  matches = matches.map(m=>_.create(User.prototype, m));
+
+                  fn(matches);
+      });
+    }
+    else {
+      fn(null);
+    }
+  }
+
+  search(searchParams, fn) {
+    searchParams = searchParams.toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
+    this.match(searchParams, matches=>fn(matches));
+  }
+
+} // end class
 
 module.exports = User;
+
+
+//{ $or: [ { classification: { $in: ['ruby', 'mackbooks'] } },{ languages: { $in:['ruby', 'mackbooks'] } },{ os: { $in: ['ruby', 'mackbooks'] } } ] }

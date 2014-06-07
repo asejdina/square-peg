@@ -19,6 +19,8 @@ function load(app, fn){
   var messages = traceur.require(__dirname + '/../routes/messages.js');
   var pings = traceur.require(__dirname + '/../routes/pings.js');
 
+  app.all('*', users.lookup);
+
   app.get('/', dbg, home.index);
 
   app.get('/users/login', dbg, users.login);
@@ -37,7 +39,7 @@ function load(app, fn){
 
   app.get('/pings/:toId', dbg, pings.index);
   app.post('/pings/:toId', dbg, pings.create);
-  
+
   console.log('Routes Loaded');
   fn();
 }

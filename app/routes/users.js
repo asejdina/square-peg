@@ -1,5 +1,8 @@
 'use strict';
 
+var traceur = require('traceur');
+var User = traceur.require(__dirname + '/../models/user.js');
+
 exports.login = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users login');
   res.render('users/dash', {title: 'Dashboard'});
@@ -10,13 +13,20 @@ exports.new = (req, res)=>{
   res.redirect('/users/edit');
 };
 
+exports.lookup = (req, res, next)=>{
+  User.findById(req.session.userId, user=>{
+    res.locals.user = user;
+    next();
+  });
+};
+
 exports.dash = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users dash');
   res.render('users/dash', {title: 'Dashboard'});
 };
 
 exports.edit = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! users edit');
+
   res.render('users/edit', {title: 'Edit Profile'});
 };
 

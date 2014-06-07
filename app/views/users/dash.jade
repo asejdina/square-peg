@@ -3,28 +3,31 @@ extends ../shared/template
 block content
   h1 USER DASHBOARD
 
-  #profileImage(style='background-image:url(#{user.picture})')
+  #profileImage
 
   #profileHeader
-    h1= user.name
-    h4= user.email
+    h1 Name
+    h4 Email
 
     button.editProfile Edit Profile
 
   #ping
-    each ping in pings
-      .ping(style='background-image:url(#{----------})')
 
   #messages
+    #messageCount New Messages:
 
   #topMatches
+    h2 Top Matches
 
     button.showAllMatches Show All
 
   #myInfo
     h2 My Info
-    h3= user.ipaddress
-    h3= user.seeking
-    p= user.bio
-    h3= user.languages
-    h3= user.classification
+    h3 ipAddress
+    h3 Seeking
+    p Bio
+    h3 languages
+    h3 classification
+
+block scripts
+  script(src='/js/es6/compiled/dashboard.js')

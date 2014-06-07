@@ -24,10 +24,12 @@ function load(app, fn){
   app.get('/', dbg, home.index);
 
   app.post('/users/login', dbg, users.login);
-  app.get('/users/logout', dbg, users.logout);
   app.post('/users/new', dbg, users.new);
 
-  
+  app.all('*', dbg, users.bounce);
+
+  app.get('/users/logout', dbg, users.logout);
+
   app.get('/users/dash', dbg, users.dash);
   app.get('/users/edit',dbg, users.edit);
   app.post('/users/edit',dbg, users.update);

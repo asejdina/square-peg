@@ -2,6 +2,8 @@
 
 var traceur = require('traceur');
 var User = traceur.require(__dirname + '/../models/user.js');
+var multiparty = require('multiparty');
+
 
 exports.lookup = (req, res, next)=>{
   User.findById(req.session.userId, user=>{
@@ -43,13 +45,19 @@ exports.dash = (req, res)=>{
 };
 
 exports.edit = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! users edit');
-  res.render('users/edit', {user: res.locals.user, title: 'Edit Profile'});
+  res.render('users/edit', {user:res.locals.user, title: 'Edit Profile'});
 };
 
 exports.update = (req, res)=>{
-  console.log('!!!!!!!!!!!!!!!!!!!!! users edit post');
-  res.redirect('/users/dash');
+  var form = new multiparty.Form();
+  var user = res.locals.user;
+
+  form.parse(req, (err, fields, files)=>{
+    user.update(fields, files);
+      user.save(()=>{
+        res.redirect('/users/dash');
+      });
+    });
 };
 
 exports.show = (req, res)=>{

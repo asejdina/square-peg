@@ -2,4 +2,29 @@ extends ../shared/template
 
 block content
   h1 USER DASHBOARD
-  
+
+  #profileImage(style='background-image:url(#{user.picture})')
+
+  #profileHeader
+    h1= user.name
+    h4= user.email
+
+    button.editProfile Edit Profile
+
+  #ping
+    each ping in pings
+      .ping(style='background-image:url(#{----------})')
+
+  #messages
+
+  #topMatches
+
+    button.showAllMatches Show All
+
+  #myInfo
+    h2 My Info
+    h3= user.ipaddress
+    h3= user.seeking
+    p= user.bio
+    h3= user.languages
+    h3= user.classification

@@ -1,8 +1,42 @@
 @main-color: #f26522;
 
+/*===========================================
+  TYPOGRAPHY
+============================================= */
+
+/* first for IE 4–8 */
+@font-face {
+  font-family: DINWeb;
+  src: url("/fonts/DINWeb.eot");
+}
+
+/* then for WOFF-capable browsers */
+@font-face {
+  font-family: DINWeb;
+  src: url("/fonts/DINWeb.woff") format("woff");
+}
+
+/* first for IE 4–8 */
+@font-face {
+  font-family: DINWeb-Bold;
+  src: url("/fonts/DINWeb-Bold.eot");
+}
+
+/* then for WOFF-capable browsers */
+@font-face {
+  font-family: DINWeb-Bold;
+  src: url("/fonts/DINWeb-Bold.woff") format("woff");
+}
+
+/*===========================================
+  MAIN STYLES
+============================================= */
+
+
 body {
   margin: 0;
   padding: 0;
+  font-family: DINWeb, sans-serif;
 }
 
 .clear {
@@ -12,6 +46,81 @@ body {
 
 .hidden {
   display:none;
+}
+
+#index-hero {
+  width:100%;
+  text-align:center;
+  background-image:url('/img/assets/hero-bkg.jpg');
+  background-position:center;
+  background-size:cover;
+
+  #index-hero-content {
+    width:90%;
+    margin: 0 auto;
+    padding-top: 20px;
+    min-height: 400px;
+    padding-bottom: 50px;
+
+    #logo {
+      float:left;
+
+      img {
+        width: 250px;
+        height: auto;
+      }
+    }
+
+    #login {
+      float:right;
+      text-align:right;
+
+      p.login-text {
+        font-size: 18px;
+        text-shadow: 0px 0px 3px #333;
+        color:#fff;
+        display:inline-block;
+        margin-right: 10px;
+      }
+
+      a#show-login {
+        background-color:@main-color;
+        border-radius: 2px;
+        padding: 10px 15px 7px 15px;
+        color:#fff;
+        text-decoration:none;
+      }
+
+      a#show-login:hover {
+        background-color:#cd501e;
+      }
+    }
+
+    #mission-short {
+      width: 60%;
+      margin: 150px auto 0 auto;
+
+      h1 {
+        font-size: 55px;
+        line-height: 1.3;
+        color: #fff;
+        text-shadow: 0px 0px 5px #333;
+      }
+
+      a#show-register {
+        background-color:@main-color;
+        border-radius: 2px;
+        font-size: 32px;
+        padding: 10px 35px 7px 35px;
+        color:#fff;
+        text-decoration:none;
+      }
+
+      a#show-register:hover {
+        background-color:#cd501e;
+      }
+    }
+  }
 }
 
 .profile-picture {

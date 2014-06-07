@@ -5,6 +5,14 @@ var User = traceur.require(__dirname + '/../models/user.js');
 var multiparty = require('multiparty');
 
 
+exports.bounce = (req, res, next)=>{
+  if(res.locals.user){
+    next();
+  }else{
+    res.redirect('/');
+  }
+};
+
 exports.lookup = (req, res, next)=>{
   User.findById(req.session.userId, user=>{
     res.locals.user = user;
@@ -14,9 +22,20 @@ exports.lookup = (req, res, next)=>{
 
 exports.new = (req, res)=>{
   User.create(req.body, user=>{
-    req.session.userId = user._id;
-    res.redirect('/users/edit');
+    if(user){
+      req.session.userId = user._id;
+      res.redirect('/users/edit');
+    }else{
+      req.session.userId = null;
+      res.redirect('/');
+    }
   });
+};
+
+exports.logout = (req, res)=>{
+  req.session = null;
+  delete req.session;
+  res.redirect('/');
 };
 
 exports.login = (req, res)=>{
@@ -29,13 +48,6 @@ exports.login = (req, res)=>{
       req.session.userId = null;
       res.redirect('/');
     }
-  });
-};
-
-exports.lookup = (req, res, next)=>{
-  User.findById(req.session.userId, user=>{
-    res.locals.user = user;
-    next();
   });
 };
 

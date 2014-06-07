@@ -6,7 +6,9 @@ var Mongo = require('mongodb');
 var traceur = require('traceur');
 var Base = traceur.require(__dirname + '/base.js');
 var fs = require('fs');
+var _ = require('lodash');
 var path = require('path');
+var rimraf = require('rimraf');
 
 class User {
 
@@ -53,6 +55,17 @@ class User {
     Base.findById(id, users, User, fn);
   }
 
+
+  static destroyById(userId, fn) {
+    userId = Mongo.ObjectID(userId);
+    users.findAndRemove({_id:userId}, (e,u)=>{
+      rimraf(u.primaryPhotoDir, ()=> {
+        fn(true);
+      });
+    });
+  }
+
+
   save(fn) {
     users.save(this, ()=>fn());
   }
@@ -73,6 +86,7 @@ class User {
       var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
       userDir = path.normalize(userDir);
       this.primaryPhotoPath = `${userDir}/${files.photo[0].originalFilename}`;
+      this.primaryPhotoDir = userDir;
       if(!fs.existsSync(userDir)){
         fs.mkdirSync(userDir);
       }
@@ -80,9 +94,25 @@ class User {
     }
   }
 
-  match() {
-    //db.users.find({ $or: [ { classification: { $in: ["macbooks"] } }, { languages: {$in:["ruby"]} } ] } )
+  match(searchParams, fn) {
+    if(searchParams) {
+      users.find({ $or: [ { classification: { $in: searchParams} },
+                          { languages: { $in:searchParams } },
+                          { os: { $in: searchParams } } ] } ).toArray((err, matches)=>{
+                  matches = matches.map(m=>_.create(User.prototype, m));
+
+                  fn(matches);
+      });
+    }
+    else {
+      fn(null);
+    }
   }
-}
+
+
+} // end class
 
 module.exports = User;
+
+
+//{ $or: [ { classification: { $in: ['ruby', 'mackbooks'] } },{ languages: { $in:['ruby', 'mackbooks'] } },{ os: { $in: ['ruby', 'mackbooks'] } } ] }

@@ -65,7 +65,6 @@ class User {
     });
   }
 
-
   save(fn) {
     users.save(this, ()=>fn());
   }
@@ -76,9 +75,13 @@ class User {
         this.isCreated = true;
       }
       this.name = fields.name[0];
-      this.ipAddress = fields.ipAddress[0];
-      this.ipAddress = this.ipAddress.match(/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/g,''); // check if valid IP address
+      this.ipAddress = fields.ipAddress[0].toString();
+      this.ipAddress = this.ipAddress.match(/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/g,'').toString(); // check if valid IP address
       if(this.ipAddress === ''){ this.ipAddress = '000.000.000.000'; }
+console.log('[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]');
+console.log(fields.ipAddress[0]);
+console.log(this.ipAddress);
+console.log(typeof(this.ipAddress));
       this.bio = fields.bio[0];
       this.seeking = fields.seeking[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.languages = fields.languages[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
@@ -111,6 +114,10 @@ class User {
     }
   }
 
+  search(searchParams, fn) {
+    searchParams = searchParams.toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
+    this.match(searchParams, matches=>fn(matches));
+  }
 
 } // end class
 

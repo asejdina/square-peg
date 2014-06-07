@@ -32,12 +32,6 @@ exports.login = (req, res)=>{
   });
 };
 
-exports.lookup = (req, res, next)=>{
-  User.findById(req.session.userId, user=>{
-    res.locals.user = user;
-    next();
-  });
-};
 
 exports.dash = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users dash');

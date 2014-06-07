@@ -59,7 +59,6 @@ class User {
 
   update(fields, files){
     if(fields && typeof(fields.name) !== 'undefined') {
-      console.log(fields);
       if(!this.isCreated) {
         this.isCreated = true;
       }

@@ -33,6 +33,14 @@ exports.login = (req, res)=>{
   });
 };
 
+exports.logout = (req, res)=>{
+  console.log('!!!!!!!!!!!!!!!!!!!!! users dash');
+  req.session = null;
+  delete req.session;
+  res.locals.user = null;
+  res.redirect('/');
+};
+
 exports.dash = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users dash');
   res.render('users/dash', {user: res.locals.user, title: 'Dashboard'});

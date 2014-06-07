@@ -19,6 +19,12 @@ exports.new = (req, res)=>{
   });
 };
 
+exports.logout = (req, res)=>{
+  req.session = null;
+  delete req.session;
+  res.redirect('/');
+};
+
 exports.login = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users login');
   User.login(req.body, user=>{

@@ -1,1 +1,11 @@
-h1 TOP 3 MATCHES PARTIAL
+block content
+  h1 Top Matches
+    if(matches && matches.length)
+      each match in matches
+        a.match(href='/users/#{match._id}/show' data-match-id='#{match._id}')
+          p=match.name
+          p=match.bio
+          img(src='#{match.primaryPhoto}')
+    else
+      .match You have no matches. Broaden your seeking designations:
+        span: a(href='/users/edit') here

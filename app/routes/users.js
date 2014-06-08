@@ -80,7 +80,12 @@ exports.show = (req, res)=>{
 
 exports.top3matches = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users top3matches');
-  res.render('users/top3matches', {});
+  User.findById(res.locals.user._id, u=>{
+    u.match(u.seeking, (matches)=>{
+      matches = matches.slice(0,3);
+      res.render('users/top3matches', {user:res.locals.user, matches:matches, title:'Top 3 Matches'});
+    });
+  });
 };
 
 exports.matches = (req, res)=>{

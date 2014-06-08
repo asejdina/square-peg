@@ -27,3 +27,9 @@ exports.destroy = (req, res)=>{
     message.destroy(()=>res.redirect('/messages/inbox'));
   });
 };
+
+exports.count = (req, res)=>{
+  Message.findAllByToId(req.session.userId, messages=>{
+    res.render('messages/count', {messages:messages, title:'Message Total'});
+  });
+};

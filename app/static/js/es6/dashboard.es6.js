@@ -25,7 +25,8 @@
   }
 
   function getMessageNumber(){
-
+    let messageCount = $('#tableMessageTable > tr').length;
+    $('#messageCount').append(messageCount);
   }
 
 

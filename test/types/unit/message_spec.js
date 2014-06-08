@@ -12,23 +12,30 @@ var db = traceur.require(__dirname + '/../../helpers/db.js');
 //var factory = traceur.require(__dirname + '/../../helpers/factory.js');
 
 var Message;
+var User;
 var message1, message2;
 
 describe('Message', function(){
   before(function(done){
     db(function(){
       Message = traceur.require(__dirname + '/../../../app/models/message.js');
+      User = traceur.require(__dirname + '/../../../app/models/user.js');
       done();
     });
   });
 
   beforeEach(function(done){
     global.nss.db.collection('messages').drop(function(){
-      Message.create('123443789012abcde3287453', '12345678901d342de4587453', {message:'Hey, I like your logic board.'}, function(m1){
-        message1 = m1;
-        Message.create('123443789012abcde3285555', '12345678901d342de4587453', {message:'Nice to meet you. Lets have computer sex'},function(m2){
-          message2 = m2;
-          done();
+      global.nss.db.collection('users').drop(function(){
+        User.create({email: 'tester@aol.com', password: 'a'}, function(u){
+          var testerId = u._id.toString();
+          Message.create(testerId, '12345678901d342de4587453', {message:'Hey, I like your logic board.'}, function(m1){
+            message1 = m1;
+            Message.create(testerId, '123443789012abcde3285555', {message:'Nice to meet you. Lets have computer sex'},function(m2){
+              message2 = m2;
+              done();
+            });
+          });
         });
       });
     });
@@ -83,7 +90,7 @@ describe('Message', function(){
     it('should find all messages to the user', function(done){
       Message.findAllByToId('12345678901d342de4587453', function(messages){
         console.log(messages);
-        expect(messages).to.have.length(2);
+        expect(messages).to.have.length(1);
         done();
       });
     });

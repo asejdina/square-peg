@@ -1,10 +1,10 @@
 extends ../shared/template
 
 block content
+  #user.hidden(data-id='#{user._id}')
   h1= user.name
   p= user.email
 
-  
   .profile-picture(style='background-image:url(#{user.primaryPhoto})')
 
   #interact
@@ -27,3 +27,6 @@ block content
   ul.seeking-ul
     each seek in user.seeking
       li.seek= seek
+
+block scripts
+  script(src='/js/es6/compiled/ping.js')

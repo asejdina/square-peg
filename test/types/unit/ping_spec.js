@@ -12,23 +12,30 @@ var db = traceur.require(__dirname + '/../../helpers/db.js');
 //var factory = traceur.require(__dirname + '/../../helpers/factory.js');
 
 var Ping;
+var User;
 var ping1, ping2;
 
 describe('Ping', function(){
   before(function(done){
     db(function(){
       Ping = traceur.require(__dirname + '/../../../app/models/ping.js');
+      User = traceur.require(__dirname + '/../../../app/models/user.js');
       done();
     });
   });
 
   beforeEach(function(done){
     global.nss.db.collection('pings').drop(function(){
-      Ping.create('123443789012abcde3287453', '12345678901d342de4587453',function(p1){
-        ping1 = p1;
-        Ping.create('123443789012abcde3285555', '12345678901d342de4587453',function(p2){
-          ping2 = p2;
-        done();
+      global.nss.db.collection('users').drop(function(){
+        User.create({email: 'tester@aol.com', password: 'a'}, function(u){
+          var testerId = u._id.toString();
+          Ping.create(testerId, '12345678901d342de4587453',function(p1){
+            ping1 = p1;
+            Ping.create(testerId, '12345678901d342de4587453',function(p2){
+              ping2 = p2;
+            done();
+            });
+          });
         });
       });
     });

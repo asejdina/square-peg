@@ -20,7 +20,7 @@
 
   function getPings(){
     ajax(`/pings/:toId`, 'get', null, html=>{
-      $('#ping').append(html);
+      $('#pings').append(html);
     });
   }
 

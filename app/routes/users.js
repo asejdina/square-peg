@@ -101,3 +101,13 @@ exports.matches = (req, res)=>{
     });
   });
 };
+exports.searchBox = (req,res)=>{
+  res.render('users/search');
+};
+exports.search = (req, res) => {
+  User.findById(res.locals.user._id, u=>{
+    u.search(req.query.search, (matches)=>{
+      res.render('users/matches', {user:res.locals.user, matches:matches, title:'Matches'});
+    });
+  });
+};

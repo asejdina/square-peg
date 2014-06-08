@@ -36,6 +36,8 @@ function load(app, fn){
   app.get('/users/:id/show', dbg, users.show);
   app.get('/users/top3matches', dbg, users.top3matches);
   app.get('/users/matches', dbg, users.matches);
+  app.get('/users/searchBox', dbg, users.searchBox);
+  app.get('/users/search', dbg, users.search);
 
   app.get('/messages/inbox', dbg, messages.index);
   app.post('/messages/:msgId', dbg, messages.destroy);

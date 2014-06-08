@@ -1,5 +1,5 @@
 @main-color: #f26522;
-
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:700);
 /*===========================================
   CSS RESET
 ============================================= */
@@ -89,6 +89,10 @@ body {
 .clear {
   width: 100%;
   clear:both;
+}
+
+.inline {
+  display: inline-block;
 }
 
 .disableClick{
@@ -389,6 +393,7 @@ header {
 }
 
 #container {
+  position: relative;
   width: 80%;
   margin: 0 auto;
   padding-top: 25px;
@@ -754,3 +759,98 @@ li.seek {
 // 	transform: scale(1);
 // 	opacity: 1;
 // }
+
+/*===========================================
+  Search STYLES
+============================================= */
+
+.overlay{
+  margin-top: 92px;
+  opacity: .85;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  z-index: 1000;
+  background: white;
+}
+.search-form{
+  text-align: center;
+  margin-top: 92px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  top:0;
+  z-index: 1001;
+}
+.search-form input{
+  font-family: 'Source Code Pro', ;
+  font-weight: 700;
+  font-size: 80px;
+  letter-spacing: -7px;
+  color: #333;
+  width: 95%;
+  height: 400%;
+  margin: 0 auto;
+  outline:none;
+  border: none;
+
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+.inactive{
+  overflow:hidden;
+}
+
+#binary {
+  text-align: left;
+}
+/*===========================================
+  Message Inbox STYLES
+============================================= */
+
+#inbox-wrapper{
+  width: 90%;
+  margin: auto;
+}
+.message-details{
+  margin-bottom: 20px;
+}
+.msg-from{
+  display: inline-block;
+  float: left;
+
+  p{
+    display: inline-block;
+  }
+  a{
+    margin-left: 10px;
+  }
+}
+
+.msg-delete{
+  display: inline-block;
+  float: right;
+}
+.msg-reply{
+  margin-left: 10px;
+  display: inline-block;
+  float: right;
+  a{
+    text-decoration: none;
+    color: @main-color;
+  }
+}
+.msg-delete{
+  float: right;
+  font-size: 20px;
+  border-radius: 2px;
+  border: none;
+  background: @main-color;
+  color: #fff;
+}
+.message-conatiner{
+  border-bottom: 1px solid #333;
+}

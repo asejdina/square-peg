@@ -2,6 +2,7 @@
 
 var traceur = require('traceur');
 var User = traceur.require(__dirname + '/../models/user.js');
+var Message = traceur.require(__dirname + '/../models/message.js');
 var multiparty = require('multiparty');
 
 
@@ -53,7 +54,9 @@ exports.login = (req, res)=>{
 
 exports.dash = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! users dash');
-  res.render('users/dash', {user: res.locals.user, title: 'Dashboard'});
+  Message.findAllByToId(req.session.userId, messages=>{
+    res.render('users/dash', {user: res.locals.user, messages: messages, title: 'Dashboard'});
+  });
 };
 
 exports.edit = (req, res)=>{

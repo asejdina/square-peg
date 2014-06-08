@@ -41,6 +41,7 @@ function load(app, fn){
   app.post('/messages/:msgId', dbg, messages.destroy);
   app.get('/messages/new/:toId', dbg, messages.new);
   app.post('/messages/new/:toId', dbg, messages.create);
+  app.get('/messages/:toId/count', dbg, messages.count);
 
   app.get('/pings/:toId', dbg, pings.index);
   app.post('/pings/:toId', dbg, pings.create);

@@ -4,14 +4,13 @@ block content
   h1= user.name
   p= user.email
 
-  
   .profile-picture(style='background-image:url(#{user.primaryPhoto})')
 
   #interact
     a#send-msg(href='/messages/new/#{user._id}')
       i.fa.fa-envelope
     .clear
-    a#ping(href='#')
+    a#ping(href='/ping/#{user._id}')
       i.fa.fa-heart
 
   .clear

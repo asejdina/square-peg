@@ -739,14 +739,66 @@ li.seek {
   font-family: 'Source Code Pro', ;
   font-weight: 700;
   font-size: 80px;
-  letter-spacing: -7px; 
+  letter-spacing: -7px;
   color: #333;
   width: 95%;
   height: 400%;
   margin: 0 auto;
   outline:none;
   border: none;
+
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 .inactive{
   overflow:hidden;
+}
+
+/*===========================================
+  Message Inbox STYLES
+============================================= */
+
+#inbox-wrapper{
+  width: 90%;
+  margin: auto;
+}
+.message-details{
+  margin-bottom: 20px;
+}
+.msg-from{
+  display: inline-block;
+  float: left;
+
+  p{
+    display: inline-block;
+  }
+  a{
+    margin-left: 10px;
+  }
+}
+
+.msg-delete{
+  display: inline-block;
+  float: right;
+}
+.msg-reply{
+  margin-left: 10px; 
+  display: inline-block;
+  float: right;
+  a{
+    text-decoration: none;
+    color: @main-color;
+  }
+}
+.msg-delete{
+  float: right;
+  font-size: 20px;
+  border-radius: 2px;
+  border: none;
+  background: @main-color;
+  color: #fff;
+}
+.message-conatiner{
+  border-bottom: 1px solid #333;
 }

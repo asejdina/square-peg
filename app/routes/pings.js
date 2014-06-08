@@ -1,8 +1,14 @@
 'use strict';
 
+var traceur = require('traceur');
+var Ping = traceur.require(__dirname + '/../models/ping.js');
+
 exports.index = (req, res)=>{
   console.log('!!!!!!!!!!!!!!!!!!!!! pings index');
-  res.render('pings/index', {title: 'Pings'});
+  Ping.findAllByToId(req.session.userid, pings=>{
+    res.render('pings/index', {pings:pings, title: 'Pings'});
+  });
+
 };
 
 exports.create = (req, res)=>{

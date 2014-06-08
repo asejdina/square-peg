@@ -24,7 +24,9 @@ class User {
         user.password = bcrypt.hashSync(obj.password, 8);
         user.isCreated = false;
         user.ipAddress = '';
-        user.primaryPhoto = null;
+        user.primaryPhoto = '/img/defaultPhoto.png';
+        user.primaryPhotoPath = null;
+        user.primaryPhotoDir = null;
         user.photoGallery = [];
         user.bio = '';
         user.seeking = [];
@@ -76,22 +78,25 @@ class User {
       }
       this.name = fields.name[0];
       this.ipAddress = fields.ipAddress[0].toString();
-      this.ipAddress = this.ipAddress.match(/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/g,'').toString(); // check if valid IP address
-      if(this.ipAddress === ''){ this.ipAddress = '000.000.000.000'; }
+      this.ipAddress = this.ipAddress.match(/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/g,''); // check if valid IP address
+      if(this.ipAddress === null){ this.ipAddress = '000.000.000.000'; }
+      else { this.ipAddress = this.ipAddress.toString(); }
       this.bio = fields.bio[0];
       this.seeking = fields.seeking[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.languages = fields.languages[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.os = fields.os[0];
       this.classification = fields.classification[0];
-      this.primaryPhoto = `/img/${this._id.toString()}/${files.photo[0].originalFilename}`;
-      var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
-      userDir = path.normalize(userDir);
-      this.primaryPhotoPath = `${userDir}/${files.photo[0].originalFilename}`;
-      this.primaryPhotoDir = userDir;
-      if(!fs.existsSync(userDir)){
-        fs.mkdirSync(userDir);
+      if(files.photo[0].size !== 0){
+        this.primaryPhoto = `/img/${this._id.toString()}/${files.photo[0].originalFilename}`;
+        var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
+        userDir = path.normalize(userDir);
+        this.primaryPhotoPath = `${userDir}/${files.photo[0].originalFilename}`;
+        this.primaryPhotoDir = userDir;
+        if(!fs.existsSync(userDir)){
+          fs.mkdirSync(userDir);
+        }
+        fs.renameSync(files.photo[0].path, this.primaryPhotoPath);
       }
-      fs.renameSync(files.photo[0].path, this.primaryPhotoPath);
     }
   }
 

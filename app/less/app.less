@@ -471,6 +471,16 @@ header {
     color:#fff;
     background:@main-color;
   }
+
+  .pinged {
+    background-color: #777 !important;
+    border: 2px solid #777 !important;
+    color: #fff !important;
+    ::after {
+      font-family: DINWeb, sans-serif;
+      content: 'pinged';
+    }
+  }
 }
 
 h3.seeking {
@@ -488,6 +498,14 @@ li.seek {
   padding: 10px 20px;
   border-radius:2px;
   margin: 0 10px;
+}
+
+.from-pic {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ccc;
+  background-size:cover;
+  background-position:center;
 }
 
 

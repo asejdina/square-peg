@@ -1,5 +1,7 @@
 var Mongo = require('mongodb');
 var messageCollection = global.nss.db.collection('messages');
+var traceur = require('traceur');
+var User = traceur.require(__dirname + '/../models/user.js');
 var _ = require('lodash');
 
 class Message{
@@ -31,7 +33,19 @@ class Message{
     if(toId.length !== 24){fn(null); return;}
 
     toId = Mongo.ObjectID(toId);
-    messageCollection.find({toId:toId}).toArray((e,m)=>fn(m));
+    messageCollection.find({toId:toId}).toArray((e,messages)=>{
+      User.findAll(users=>{
+        messages.forEach(m=>{
+          var fromUser = users.filter(u=>{
+            if(m.fromId.toString() === u._id.toString()){
+              return true;
+            }
+          });
+          m.fromName = fromUser[0].name;
+        });
+        fn(messages);
+      });
+    });
   }
 
   destroy(fn){

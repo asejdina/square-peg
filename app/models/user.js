@@ -106,13 +106,15 @@ class User {
 
   match(searchParams, fn) {
     if(searchParams) {
-//       searchParams = searchParams.map(sp=>{
-//         if(sp.match(/[a-z]+s$/g)!==null) {
-//           var tmp = sp.slice(0,-1); // stripp off the 's'
-//           searchParams.push(tmp);
-//         }
-//       });
-// console.log(searchParams);
+      var tmp = [];
+      searchParams.forEach(sp=>{
+        if(sp.match(/[a-z]+s$/g)!==null) {
+          tmp.push(sp.slice(0,-1)); // strips off 's'
+        }
+        searchParams = searchParams.concat(tmp);
+      });
+      console.log(searchParams);
+
       users.find({ $or: [ { classification: { $in: searchParams} },
                           { languages: { $in:searchParams } },
                           { os: { $in: searchParams } } ] } ).toArray((err, matches)=>{

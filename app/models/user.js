@@ -24,7 +24,7 @@ class User {
         user.password = bcrypt.hashSync(obj.password, 8);
         user.isCreated = false;
         user.ipAddress = '';
-        user.primaryPhoto = '/img/defaultPhoto.png';
+        user.primaryPhoto = '/img/assets/defaultPhoto.png';
         user.primaryPhotoPath = null;
         user.primaryPhotoDir = null;
         user.photoGallery = [];

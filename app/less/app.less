@@ -75,7 +75,7 @@ table {
 }
 
 /*===========================================
-  MAIN STYLES
+  INDEX STYLES
 ============================================= */
 
 
@@ -91,8 +91,28 @@ body {
   clear:both;
 }
 
+.disableClick{
+  pointer-events: none;
+}
+
 .hidden {
+  -webkit-transition: all 0.3s; /* For Safari 3.1 to 6.0 */
+  transition: all 0.3s;
   display:none;
+}
+
+.show {
+  -webkit-transition: all 0.3s; /* For Safari 3.1 to 6.0 */
+  transition: all 0.3s;
+  display:block !important;
+}
+
+.block {
+  display:inline-block;
+  margin: 20px;
+  float:left;
+  border: 1px solid #ccc;
+  padding: 10px;
 }
 
 #index-hero {
@@ -272,7 +292,7 @@ body {
 
       p {
         display:inline-block;
-        display:inline-block;
+        padding-top: 15px;;
         color: @main-color;
         font-family: DINWeb-Bold, sans-serif;
       }
@@ -317,6 +337,158 @@ body {
 }
 
 
+/*===========================================
+  MAIN STYLES
+============================================= */
+
+header {
+  padding: 20px 0;
+  background: @main-color;
+  color:#fff;
+
+  #header-content {
+    width: 90%;
+    margin: 0 auto;
+
+    #logo {
+      float:left;
+
+      img {
+        width: 200px;
+        height: auto;
+      }
+    }
+
+    nav {
+      float:right;
+
+      ul {
+        margin: 5px 0 0 0;
+        padding: 0;
+        list-style-type:none;
+
+        li {
+          display:inline-block;
+          margin: 10px 20px 0 0;
+
+          a {
+            text-decoration:none;
+            color:#fff;
+          }
+
+          a:hover {
+            border-bottom: 3px solid #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+#container {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 25px;
+  padding-bottom: 100px;
+
+  #edit-container {
+    width: 50%;
+    margin: 0 auto;
+    padding-bottom: 100px;
+
+    p.email {
+      padding: 10px;
+      background: @main-color;
+      border-radius: 2px;
+      color:#fff;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display:block;
+    }
+    input {
+      width: 100%;
+      margin: 10px auto;
+      padding: 15px 10px;
+      border-radius: 2px;
+      border:1px solid #ccc;;
+      box-sizing:border-box;
+    }
+
+    input:focus, textarea:focus {
+      outline-width: 3px;
+      outline-style:solid;
+      outline-color:@main-color;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+    }
+
+    button {
+      background-color:#fff;
+      border-radius: 2px;
+      border: 2px solid @main-color;
+      font-family: DINWeb, sans-serif;
+      font-size: 20px;
+      padding: 10px 35px 12px 35px;
+      color:@main-color;
+      text-decoration:none;
+    }
+
+    button:hover {
+      background-color:@main-color;
+      color: #fff;
+    }
+  }
+
+}
+
+.profile-picture {
+  float:left;
+  margin-right: 25px;
+  margin-bottom: 25px;
+}
+
+#interact {
+  float:left;
+
+  a#ping, a#send-msg {
+    margin-bottom: 10px;
+    display:block;
+    width: 100px;
+    padding: 10px 0;
+    color:@main-color;
+    text-align:center;
+    border-radius:2px;
+    border: 2px solid @main-color;
+    background:#fff;
+  }
+
+  a#ping:hover, a#send-msg:hover {
+    color:#fff;
+    background:@main-color;
+  }
+}
+
+h3.seeking {
+  display:inline-block;
+}
+
+ul.seeking-ul {
+  display:inline-block;
+}
+
+li.seek {
+  display:inline-block;
+  background:@main-color;
+  color:#fff;
+  padding: 10px 20px;
+  border-radius:2px;
+  margin: 0 10px;
+}
 
 
 
@@ -332,7 +504,21 @@ body {
 
 
 /* ----------MODAL ----------*/
-.md-modal {
+.btn-selected {
+  background: @main-color !important;
+}
+#btn-register, #btn-login {
+  display:inline-block;
+  width: 50%;
+  background: #d04d1a;
+  padding: 10px 0;
+  color: #fff;
+  font-size: 18px;
+  text-decoration:none;
+  margin-bottom: 10px;
+}
+
+#modal {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -341,7 +527,6 @@ body {
 	min-width: 320px;
 	height: auto;
 	z-index: 2000;
-	visibility: hidden;
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -349,37 +534,90 @@ body {
 	-moz-transform: translateX(-50%) translateY(-50%);
 	-ms-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
-}
 
-.md-show {
-	visibility: visible;
-}
+  button#submit-register, button#submit-login {
+    padding: 10px 30px;
+    background: @main-color;
+    border-radius: 2px;
+    border: 2px solid #fff;
+    color: #fff;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-family: DINWeb, sans-serif;
+  }
 
-.md-overlay {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	visibility: hidden;
-	top: 0;
-	left: 0;
-	z-index: 1000;
-	opacity: 0;
-	background: rgba(255, 255, 255, 0.7);
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
-}
+  button#submit-register:hover, button#submit-login:hover {
+    background-color: #fff;
+    color: @main-color;
+  }
 
-.md-show ~ .md-overlay {
-	opacity: 1;
-	visibility: visible;
+  a.boxclose{
+      position:absolute;
+      right:35px;
+      top:35px;
+      margin-top:-30px;
+      margin-right:-30px;
+      cursor:pointer;
+      color: #fff;
+      border-radius: 30px;
+      font-size: 38px;
+      font-weight: 100;
+      display: inline-block;
+      line-height: 0px;
+      padding: 11px 3px;
+  }
+
+  .boxclose:before {
+      content: "×";
+  }
+
+  input {
+    width: 75%;
+    margin: 10px auto;
+    padding: 15px 10px;
+    border-radius: 2px;
+    border:none;
+    box-sizing:border-box;
+  }
+
+  input:focus {
+    outline-width: 3px;
+    outline-style:solid;
+    outline-color:#d04d1a;
+  }
 }
+//
+// .md-show {
+// 	visibility: visible;
+// }
+//
+// .md-overlay {
+// 	position: fixed;
+// 	width: 100%;
+// 	height: 100%;
+// 	visibility: hidden;
+// 	top: 0;
+// 	left: 0;
+// 	z-index: 1000;
+// 	opacity: 0;
+// 	background: rgba(255, 255, 255, 0.7);
+// 	-webkit-transition: all 0.3s;
+// 	-moz-transition: all 0.3s;
+// 	transition: all 0.3s;
+// }
+
+// .md-show ~ .md-overlay {
+// 	opacity: 1;
+// 	visibility: visible;
+// }
 
 
 /* Content styles */
 .md-content {
 	color: #fff;
-	background: #75bdde;
+	background: @main-color;
 	position: relative;
 	border-radius: 3px;
 	margin: 0 auto;
@@ -390,66 +628,66 @@ body {
   }
 }
 
-.md-content h3 {
-	margin: 0;
-	padding: 0.4em;
-	text-align: center;
-	font-size: 2.4em;
-	font-weight: 300;
-	opacity: 0.8;
-	background: rgba(0,0,0,0.1);
-	border-radius: 3px 3px 0 0;
-}
-
-.md-content > div {
-	padding: 15px 40px 30px;
-	margin: 0 auto;
-	font-weight: 300;
-	font-size: 1.15em;
-}
-
-.md-content > div p {
-	margin: 0;
-	padding: 10px 0;
-}
-
-.md-content > div ul {
-	margin: 0;
-	padding: 0 0 30px 20px;
-}
-
-.md-content > div ul li {
-	padding: 5px 0;
-}
-
-.md-content button {
-	display: block;
-	margin: 10px auto;
-	font-size: 0.8em;
-}
-
-
+// .md-content h3 {
+// 	margin: 0;
+// 	padding: 0.4em;
+// 	text-align: center;
+// 	font-size: 2.4em;
+// 	font-weight: 300;
+// 	opacity: 0.8;
+// 	background: rgba(0,0,0,0.1);
+// 	border-radius: 3px 3px 0 0;
+// }
+//
+// .md-content > div {
+// 	padding: 15px 40px 30px;
+// 	margin: 0 auto;
+// 	font-weight: 300;
+// 	font-size: 1.15em;
+// }
+//
+// .md-content > div p {
+// 	margin: 0;
+// 	padding: 10px 0;
+// }
+//
+// .md-content > div ul {
+// 	margin: 0;
+// 	padding: 0 0 30px 20px;
+// }
+//
+// .md-content > div ul li {
+// 	padding: 5px 0;
+// }
+//
+// .md-content button {
+// 	display: block;
+// 	margin: 10px auto;
+// 	font-size: 0.8em;
+// }
 
 
 
-/* Individual modal styles with animations/transitions */
 
-/* Effect 1: Fade in and scale up */
-.md-effect-1 .md-content {
-	-webkit-transform: scale(0.7);
-	-moz-transform: scale(0.7);
-	-ms-transform: scale(0.7);
-	transform: scale(0.7);
-	opacity: 0;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
-}
-
-.md-show.md-effect-1 .md-content {
-	-webkit-transform: scale(1);
-	-moz-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-	opacity: 1;
-}
+//
+// /* Individual modal styles with animations/transitions */
+//
+// /* Effect 1: Fade in and scale up */
+// .md-effect-1 .md-content {
+// 	-webkit-transform: scale(0.7);
+// 	-moz-transform: scale(0.7);
+// 	-ms-transform: scale(0.7);
+// 	transform: scale(0.7);
+// 	opacity: 0;
+// 	-webkit-transition: all 0.3s;
+// 	-moz-transition: all 0.3s;
+// 	transition: all 0.3s;
+// }
+//
+// .md-show.md-effect-1 .md-content {
+// 	-webkit-transform: scale(1);
+// 	-moz-transform: scale(1);
+// 	-ms-transform: scale(1);
+// 	transform: scale(1);
+// 	opacity: 1;
+// }

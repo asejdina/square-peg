@@ -4,12 +4,14 @@ html
     meta(charset='utf-8')
     title= title
     link(href='/less/app.css', rel='stylesheet')
+    link(href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel='stylesheet')
+
   body
     header
       #header-content
         #logo
-          a(href='#')
-            img(src='/img/assets/logo.svg')
+          a(href='/')
+            img(src='/img/assets/logo-all-white.svg')
         nav
           ul
             li
@@ -17,10 +19,12 @@ html
             li
               a(href='/messages/inbox') Messages
             li
-              a(href='#') Search?
+              a(href='#') Search
             li
               a(href='/users/logout') Logout
-    block content
+        .clear
+    #container
+      block content
 
     script(src='/js/vendor/jquery-2.1.1.js')
     script(src='/js/vendor/lodash-2.4.1.js')

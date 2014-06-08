@@ -1,21 +1,29 @@
 extends ../shared/template
 
 block content
-  h1 SHOW PROFILE PAGE
+  h1= user.name
   p= user.email
 
+  .l
   .profile-picture(style='background-image:url(#{user.primaryPhoto})')
-  h2= user.name
-  p= user.bio
 
-  a(href='/messages/new/#{user._id}') Message #{user.name}
+  #interact
+    a#send-msg(href='/messages/new/#{user._id}')
+      i.fa.fa-envelope
+    .clear
+    a#ping(href='#')
+      i.fa.fa-heart
+
   .clear
-  a#ping(href='#') Ping #{user.name}
+
+  #bio
+    h3 BIO:
+    p= user.bio
 
   p Languages: #{user.languages}
   p OS: #{user.os}
 
-  h3 Seeking:
-  ul
+  h3.seeking Seeking:
+  ul.seeking-ul
     each seek in user.seeking
-      li seek
+      li.seek= seek

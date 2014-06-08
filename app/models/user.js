@@ -53,6 +53,10 @@ class User {
     });
   }
 
+  static findAll(fn) {
+    Base.findAll(users, User, fn);
+  }
+
   static findById(id, fn){
     Base.findById(id, users, User, fn);
   }
@@ -85,7 +89,7 @@ class User {
       this.seeking = fields.seeking[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.languages = fields.languages[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.os = fields.os[0];
-      this.classification = fields.classification[0];
+      this.classification = fields.classification[0].toLowerCase();
       if(files.photo[0].size !== 0){
         this.primaryPhoto = `/img/${this._id.toString()}/${files.photo[0].originalFilename}`;
         var userDir = `${__dirname}/../static/img/${this._id.toString()}`;
@@ -102,11 +106,18 @@ class User {
 
   match(searchParams, fn) {
     if(searchParams) {
+//       searchParams = searchParams.map(sp=>{
+//         if(sp.match(/[a-z]+s$/g)!==null) {
+//           var tmp = sp.slice(0,-1); // stripp off the 's'
+//           searchParams.push(tmp);
+//         }
+//       });
+// console.log(searchParams);
       users.find({ $or: [ { classification: { $in: searchParams} },
                           { languages: { $in:searchParams } },
                           { os: { $in: searchParams } } ] } ).toArray((err, matches)=>{
                   matches = matches.map(m=>_.create(User.prototype, m));
-
+                  matches = matches.filter(m=>this._id.toString()!==m._id.toString());
                   fn(matches);
       });
     }

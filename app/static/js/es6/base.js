@@ -11,7 +11,8 @@ class Base {
 
     if(!(id instanceof Mongo.ObjectID)){fn(null); return;}
 
-    global.nss.db.collection('users').findOne({_id:id}, (e,obj)=>{
+    id = Mongo.ObjectID(id);
+    collection.findOne({_id:id}, (e,obj)=>{
       if(obj){
         obj = _.create(model.prototype, obj);
         fn(obj);

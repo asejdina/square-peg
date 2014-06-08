@@ -106,7 +106,7 @@ class User {
                           { languages: { $in:searchParams } },
                           { os: { $in: searchParams } } ] } ).toArray((err, matches)=>{
                   matches = matches.map(m=>_.create(User.prototype, m));
-
+                  matches = matches.filter(m=>this._id.toString()!==m._id.toString());
                   fn(matches);
       });
     }

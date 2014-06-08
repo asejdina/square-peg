@@ -22,6 +22,7 @@ function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
     $('#btn-register').click(showRegister);
     $('#btn-login').click(showLogin);
     $('.boxclose').click(closeBox);
+    $('body').on('click', '#search', searchOverlay);
   }
 
   function showModalLogin(){
@@ -50,6 +51,13 @@ function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
     $('#btn-register').removeClass('btn-selected disableClick');
     $('#form-register').hide();
     $('#form-login').fadeToggle();
+  }
+
+  function searchOverlay(){
+    ajax('/users/searchBox', 'get', null, html=>{
+      $('body').append(html);
+      $('body').addClass('inactive');
+    });
   }
 
 

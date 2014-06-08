@@ -1,5 +1,5 @@
 @main-color: #f26522;
-
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:700);
 /*===========================================
   CSS RESET
 ============================================= */
@@ -386,6 +386,7 @@ header {
 }
 
 #container {
+  position: relative;
   width: 80%;
   margin: 0 auto;
   padding-top: 25px;
@@ -691,3 +692,43 @@ li.seek {
 // 	transform: scale(1);
 // 	opacity: 1;
 // }
+
+/*===========================================
+  Search STYLES
+============================================= */
+
+.overlay{
+  margin-top: 92px;
+  opacity: .85;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  z-index: 1000;
+  background: white;
+}
+.search-form{
+  text-align: center;
+  margin-top: 92px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  top:0;
+  z-index: 1001;
+}
+.search-form input{
+  font-family: 'Source Code Pro', ;
+  font-weight: 700;
+  font-size: 80px;
+  letter-spacing: -7px; 
+  color: #333;
+  width: 95%;
+  height: 400%;
+  margin: 0 auto;
+  outline:none;
+  border: none;
+}
+.inactive{
+  overflow:hidden;
+}

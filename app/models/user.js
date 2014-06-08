@@ -102,15 +102,18 @@ class User {
 
   match(searchParams, fn) {
     if(searchParams) {
+      console.log('match search params');
+      console.log(searchParams);
       users.find({ $or: [ { classification: { $in: searchParams} },
                           { languages: { $in:searchParams } },
                           { os: { $in: searchParams } } ] } ).toArray((err, matches)=>{
                   matches = matches.map(m=>_.create(User.prototype, m));
-
+                  console.log(matches);
                   fn(matches);
       });
     }
     else {
+      console.log('bad');
       fn(null);
     }
   }

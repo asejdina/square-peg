@@ -5,10 +5,10 @@ block content
 
 
   #profileHeader
-    h1= user.name
+    h1.name= user.name
     h4= user.email
 
-    span: a(href='/users/edit') Edit
+    span: a.edit(href='/users/edit') Edit
 
   .clear
   #pings
@@ -16,26 +16,41 @@ block content
 
   #messages
     #messageCount
-      span: a(href='/messages/inbox') Messages:
+      span: a(href='/messages/inbox')
+        i.fa.fa-envelope(style='margin-right: 10px')
+
+  .clear
 
   #userMatchSection
     #topMatches
 
-    span: a(href='/users/matches') View All
+  //-
+  //- #bio
+  //-   .bioinfo
+  //-     h3 Bio
+  //-     p= user.bio
+  //-
+  //- .clear
 
   #myInfo
-    h3 IP
-    p= user.ipAddress
-    h3 Bio
-    p= user.bio
-    h3 Seeking
-    p= user.seeking
-    h3 OS
-    p= user.os
-    h3 Languages
-    p= user.languages
-    h3 Classification
-    p= user.classification
+    .info
+      h3 Bio
+      p= user.bio
+    .info
+      h3 IP
+      p= user.ipAddress
+    .info
+      h3 Seeking
+      p= user.seeking
+    .info
+      h3 OS
+      p= user.os
+    .info
+      h3 Languages
+      p= user.languages
+    .info
+      h3 Classification
+      p= user.classification
 
 block scripts
   script(src='/js/es6/compiled/dashboard.js')

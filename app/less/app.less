@@ -516,13 +516,16 @@ li.seek {
   background-position:center;
 }
 
-#pings {
+#pings, #messages {
   background:@main-color;
+  float:left;
   border-radius: 2px;
   color:#fff;
   padding: 5px 15px;
   width: 300px;
   display:inline-block;
+  min-height: 125px;
+  margin: 5px;
 
   .ping {
     display:inline-block;
@@ -535,14 +538,13 @@ li.seek {
         right: -10px;
         cursor:pointer;
         color: #fff;
-        border: 1px solid #AEAEAE;
         border-radius: 30px;
-        background: #605F61;
+        background: #cd501e;
         font-size: 24px;
         font-weight: bold;
         display: inline-block;
         line-height: 0px;
-        padding: 8px 1px;
+        padding: 12px 6px;
     }
 
     .pingclose:before {
@@ -552,10 +554,131 @@ li.seek {
   }
 
   h3 {
-    margin:0;
+    margin:0 0 10px 0;
     padding: 0;
   }
 }
+
+#messages {
+  a {
+    color: #fff;
+    text-decoration:none;
+  }
+}
+
+
+a.edit {
+  padding: 10px 25px;
+  border-radius: 2px;
+  background: @main-color;
+  color:#fff;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+
+#topMatches {
+  width: 45%;
+  display:inline-block;
+  float:left;
+  margin-right:15px;
+}
+
+a.match {
+  display:block;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
+  color: @main-color;
+  text-decoration:none;
+
+  .match-pic {
+    width: 75px;
+    height: 75px;
+    border: 1px solid #ccc;
+    display:inline-block;
+    margin-right: 15px;
+    background-size:cover;
+    background-position:center;
+  }
+
+  .deets {
+    display:inline-block;
+  }
+
+  .match-bio {
+    color: #333;
+    font-size: 16px;
+  }
+}
+
+.viewall-matches {
+  padding: 10px 25px;
+  color:#fff;
+  background-color:@main-color;
+  text-decoration:none;
+  border-radius:2px;
+  margin-bottom: 10px;
+}
+
+a.match:hover {
+  background-color: #eee;
+}
+
+#bio {
+  display:inline-block;
+  width: 45%;
+  padding-top: 25px;
+
+  .bioinfo {
+    min-height: 150px;
+    border-radius:2px;
+    border: 2px solid @main-color;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    h3 {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+.info {
+  border-radius:2px;
+  border: 2px solid @main-color;
+  padding: 10px;
+  margin-bottom: 10px;
+  display:inline-block;
+  margin: 10px;
+
+  h3 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+#message {
+  text-align:center;
+}
+
+#messageCount {
+  i {
+    float:left;
+    padding-top: 5px;
+  }
+  font-size: 32px;
+}
+
+.box {
+  display:inline-block;
+  float:left;
+  margin-right: 60px;
+
+  #bio {
+    margin-top: 60px;
+  }
+}
+
+
 
 
 
@@ -806,6 +929,9 @@ input:-webkit-autofill {
 
 #binary {
   text-align: left;
+  font-size: 32px;
+  color: #ccc;
+  padding: 0 40px;
 }
 /*===========================================
   Message Inbox STYLES

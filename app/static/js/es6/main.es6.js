@@ -22,17 +22,6 @@ function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
     $('#btn-register').click(showRegister);
     $('#btn-login').click(showLogin);
     $('.boxclose').click(closeBox);
-    $('#ping').click(ping);
-  }
-
-  function ping(){
-    var toId = $('#user').attr('data-id');
-
-    ajax(`/pings/${toId}`, 'post', null, html=>{
-      console.log(html);
-      $('#ping').addClass('pinged');
-    }, 'json');
-
   }
 
   function showModalLogin(){

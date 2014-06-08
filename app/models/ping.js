@@ -5,6 +5,9 @@ var _ = require('lodash');
 class Ping{
   static create(fromId,toId, fn){
 
+    console.log('********');
+    console.log(toId);
+
     var ping = new Ping();
     ping.fromId = Mongo.ObjectID(fromId);
     ping.toId = Mongo.ObjectID(toId);
@@ -13,6 +16,7 @@ class Ping{
   }
 
   static findByPingId(pingId, fn){
+
     if(pingId.length !== 24){fn(null); return;}
 
     pingId = Mongo.ObjectID(pingId);
@@ -27,13 +31,22 @@ class Ping{
   }
 
   static findAllByToId(toId, fn){
+
     if(toId.length !== 24){
       fn(null);
       return;
     }
 
     toId = Mongo.ObjectID(toId);
-    pingCollection.find({toId:toId}).toArray((e,p)=>fn(p));
+    pingCollection.find({toId:toId}).toArray((e,pings)=>{
+      User.findAll(users=>{
+        pings.forEach(p=>{
+          fromUser = users.filter(u=>p.fromId === u._id);
+          p.fromPic = fromUser.primaryPhoto;
+        });
+        fn(pings);
+      });
+    });
   }
 
   destroy(fn){

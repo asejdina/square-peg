@@ -2,6 +2,7 @@ extends ../shared/template
 
 block content
   #user.hidden(data-id='#{user._id}')
+  p= user._id
   h1= user.name
   p= user.email
 
@@ -27,3 +28,6 @@ block content
   ul.seeking-ul
     each seek in user.seeking
       li.seek= seek
+
+block scripts
+  script(src='/js/es6/compiled/ping.js')

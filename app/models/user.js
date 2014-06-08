@@ -85,7 +85,7 @@ class User {
       this.seeking = fields.seeking[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.languages = fields.languages[0].toLowerCase().replace(/,/g,' ').split(' ').filter(Boolean);
       this.os = fields.os[0];
-      this.classification = fields.classification[0];
+      this.classification = fields.classification[0].toLowerCase();
       if(files.photo[0].size !== 0){
         this.primaryPhoto = `/img/${this._id.toString()}/${files.photo[0].originalFilename}`;
         var userDir = `${__dirname}/../static/img/${this._id.toString()}`;

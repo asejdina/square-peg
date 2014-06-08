@@ -23,6 +23,8 @@ function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
     $('#btn-login').click(showLogin);
     $('.boxclose').click(closeBox);
     $('body').on('click', '#search', searchOverlay);
+    $('body').keydown(typeBinary);
+
   }
 
   function showModalLogin(){
@@ -60,5 +62,16 @@ function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
     });
   }
 
+  function typeBinary(event) {
+    var keyCode = event.keyCode;
+    if(keyCode>=33 && keyCode <=122) {
+      var bin = keyCode.toString(2);
+      bin = bin + '.';
+      $('#binary').append(`<p class='inline'>${bin}</p>`);
+    }
+    if(keyCode===8) {
+      $('#binary :last-child').remove();
+    }
+  }
 
 })();

@@ -1,5 +1,5 @@
 block content
-  h1 TOP 3 MATCHES PARTIAL
+  h1 Top Matches
     if(matches && matches.length)
       each match in matches
         a.match(href='/users/#{match._id}/show' data-match-id='#{match._id}')

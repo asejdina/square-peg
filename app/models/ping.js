@@ -1,5 +1,7 @@
 var Mongo = require('mongodb');
 var pingCollection = global.nss.db.collection('pings');
+var traceur = require('traceur');
+var User = traceur.require(__dirname + '/../models/user.js');
 var _ = require('lodash');
 
 class Ping{
@@ -41,9 +43,14 @@ class Ping{
     pingCollection.find({toId:toId}).toArray((e,pings)=>{
       User.findAll(users=>{
         pings.forEach(p=>{
-          fromUser = users.filter(u=>p.fromId === u._id);
-          p.fromPic = fromUser.primaryPhoto;
+          var fromUser = users.filter(u=>{
+            if(p.fromId.toString() === u._id.toString()){
+              return true;
+            }
+          });
+          p.fromPic = fromUser[0].primaryPhoto;
         });
+        console.log(pings);
         fn(pings);
       });
     });

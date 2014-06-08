@@ -44,7 +44,8 @@ function load(app, fn){
   app.get('/messages/:toId/count', dbg, messages.count);
 
   app.get('/pings/:toId', dbg, pings.index);
-  app.post('/pings/:toId', dbg, pings.create);
+  app.post('/pings/new/:toId', dbg, pings.create);
+  app.post('/pings/:pingId', dbg, pings.destroy);
 
   console.log('Routes Loaded');
   fn();

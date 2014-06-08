@@ -17,7 +17,7 @@
   function ping(){
     var toId = $('#user').attr('data-id');
 
-    ajax(`/pings/${toId}`, 'post', null, html=>{
+    ajax(`/pings/new/${toId}`, 'post', null, html=>{
       console.log(html);
       $('#ping').addClass('pinged');
     }, 'json');

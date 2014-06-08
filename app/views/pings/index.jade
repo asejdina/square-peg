@@ -1,3 +1,7 @@
 h1 PINGS INDEX PARTIAL might not use
   each ping in pings
-    p here is a ping
+    a(href='/users/#{ping.fromId}/show')
+      .from-pic(style='background-image:url(#{ping.fromPic})')
+    .delete-ping
+      form(method='POST', action='/pings/#{ping._id}')
+        button X

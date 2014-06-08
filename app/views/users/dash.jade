@@ -1,9 +1,6 @@
 extends ../shared/template
 
 block content
-  h1 USER DASHBOARD
-
-
   .profile-picture(style="background-image:url('#{user.primaryPhoto}')")
 
 
@@ -14,8 +11,8 @@ block content
     span: a(href='/users/edit') Edit
 
   .clear
-  h3 PINGS
   #pings
+    h3 PINGS
 
   #messages
     #messageCount
@@ -42,3 +39,4 @@ block content
 
 block scripts
   script(src='/js/es6/compiled/dashboard.js')
+  script(src='/js/es6/compiled/ping.js')

@@ -12,6 +12,12 @@
   function init(){
     //alert('loaded');
     $('#ping').click(ping);
+    $('body').on('click', 'a.pingclose', deletePing);
+  }
+
+  function deletePing(){
+    debugger;
+    $(this).closest('form').submit();
   }
 
   function ping(){

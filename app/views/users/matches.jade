@@ -4,10 +4,11 @@ block content
   h1 MATCHES PAGE
   if(matches && matches.length)
     each match in matches
-      a.match(href='/users/#{match._id}/show' data-match-id='#{match._id}')
-        p=match.name
-        p=match.bio
-        img(src='#{match.primaryPhoto}')
+      .match-container
+        a.match(href='/users/#{match._id}/show' data-match-id='#{match._id}')
+          img.match-photo(src='#{match.primaryPhoto}')
+          p.match-name=match.name
+          p.match-bio=match.bio
   else
-    .match You have no matches. Broaden your seeking designations: 
+    .match You have no matches. Broaden your seeking designations:
       span: a(href='/users/edit') here

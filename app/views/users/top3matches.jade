@@ -1,5 +1,5 @@
 block content
-  h1 Top Matches
+  h1.topmatches Top Matches
   a.viewall-matches(href='/users/matches') View All
   .clear
   br
@@ -9,7 +9,7 @@ block content
         img.match-pic(style='background-image:url(#{match.primaryPhoto})')
         .deets
           p.match-name=match.name
-          p.match-bio=match.bio
+          p.match-bio=match.classification
   else
     .match You have no matches. Broaden your seeking designations:
       span: a(href='/users/edit') here

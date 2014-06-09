@@ -516,16 +516,17 @@ li.seek {
   background-position:center;
 }
 
-#pings, #messages {
+#pings {
   background:@main-color;
   float:left;
   border-radius: 2px;
   color:#fff;
   padding: 5px 15px;
-  width: 300px;
+  //width: 300px;
   display:inline-block;
-  min-height: 125px;
-  margin: 5px;
+  //min-height: 125px;
+  margin: 5px 35px 0 0;
+
 
   .ping {
     display:inline-block;
@@ -560,27 +561,41 @@ li.seek {
 }
 
 #messages {
+  display:inline-block;
+  float:left;
+
   a {
-    color: #fff;
+    color: @main-color;
     text-decoration:none;
+  }
+
+  p {
+    float:left;
   }
 }
 
 
 a.edit {
-  padding: 10px 25px;
+  padding: 5px 10px;
   border-radius: 2px;
   background: @main-color;
   color:#fff;
+
   text-transform:uppercase;
   text-decoration:none;
+  display:inline-block;
+  float:left;
+  margin-right: 15px;
 }
 
 #topMatches {
-  width: 45%;
-  display:inline-block;
-  float:left;
-  margin-right:15px;
+  text-align:right;
+  width: 70%;
+  float:right;
+}
+
+#myInfo {
+  width: 60%;
 }
 
 a.match {
@@ -610,36 +625,44 @@ a.match {
   }
 }
 
+h1.topmatches {
+  display:inline-block;
+  font-size: 20px;
+  margin-right: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
 .viewall-matches {
-  padding: 10px 25px;
+  padding: 5px 15px;
   color:#fff;
   background-color:@main-color;
   text-decoration:none;
   border-radius:2px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 a.match:hover {
   background-color: #eee;
 }
 
-#bio {
-  display:inline-block;
-  width: 45%;
-  padding-top: 25px;
+.bioinfo {
+  border-radius:2px;
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 10px;
 
-  .bioinfo {
-    min-height: 150px;
-    border-radius:2px;
-    border: 2px solid @main-color;
-    padding: 10px;
-    margin-bottom: 10px;
-
-    h3 {
-      margin: 0;
-      padding: 0;
-    }
+  h3 {
+    margin: 0;
+    padding: 0;
   }
+}
+
+h1.name {
+  margin: 0;
+}
+
+h4.email {
+  margin: 0 0 20px 0
 }
 
 .info {
@@ -670,12 +693,15 @@ a.match:hover {
 
 .box {
   display:inline-block;
-  float:left;
-  margin-right: 60px;
+  width: 50%;
 
-  #bio {
-    margin-top: 60px;
-  }
+  // #bio {
+  //   margin-top: 60px;
+  // }
+}
+
+.right {
+  float:right;
 }
 
 

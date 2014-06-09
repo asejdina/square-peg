@@ -1,28 +1,39 @@
 extends ../shared/template
 
 block content
-  .profile-picture(style="background-image:url('#{user.primaryPhoto}')")
+  .box
+    .profile-picture(style="background-image:url('#{user.primaryPhoto}')")
 
 
-  #profileHeader
-    h1.name= user.name
-    h4= user.email
+    #profileHeader
+      h1.name= user.name
+      h4.email= user.email
 
-    span: a.edit(href='/users/edit') Edit
+      span: a.edit(href='/users/edit') Edit
 
-  .clear
+      br
+      br
+
+      #messages
+        #messageCount
+          span: a(href='/messages/inbox')
+            i.fa.fa-envelope(style='margin-right: 10px')
+
+  .box.right
+    #userMatchSection
+      #topMatches
+
+
   #pings
     h3 PINGS
 
-  #messages
-    #messageCount
-      span: a(href='/messages/inbox')
-        i.fa.fa-envelope(style='margin-right: 10px')
-
   .clear
 
-  #userMatchSection
-    #topMatches
+  .bioinfo
+    h3 Bio
+    p= user.bio
+
+  .clear
 
   //-
   //- #bio
@@ -33,9 +44,6 @@ block content
   //- .clear
 
   #myInfo
-    .info
-      h3 Bio
-      p= user.bio
     .info
       h3 IP
       p= user.ipAddress

@@ -2,7 +2,8 @@ extends ../shared/template
 
 block content
   h1 New Message
-  form(method='POST', action='/messages/new/#{toId}')
-    label Message
-    textarea(name='message')
-    button Send
+  .new-msg
+    form(method='POST', action='/messages/new/#{toId}')
+      label Message
+      textarea.new-message(name='message')
+      button Send
